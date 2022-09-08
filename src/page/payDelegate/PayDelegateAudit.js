@@ -275,7 +275,7 @@ class PayDelegateAudit extends React.Component {
                             </div>
                             {this.data.auditDetail.changeDetail.map((item, index) => (
                                 <div className='detailBorder detailMarTop borderBottom'>
-                                    <DetailNormal label="下发部门" value={item.Remark} />
+                                    <DetailNormal label="下发部门" value={item.DeptName} />
                                     <DetailNormal label="下发项目" value={item.ItemID} />
                                     <DetailNormal label="下发金额" value={`${item.Money || '0.00'}元`} />
                                     <DetailNormal label="下发备注" value={item.Remark || ''} />

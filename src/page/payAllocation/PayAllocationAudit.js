@@ -98,6 +98,7 @@ class PayAllocationAudit extends React.Component {
             method: 'post'
         }).then(res => {
             this.data.isShowTips = false;
+            console.log(res.data);
             if (res.data != null && res.data != undefined && res.data.allotDetail != null && res.data.allotDetail.length > 0) {
                 this.data.auditDetail = res.data;
                 console.log(this.data.auditDetail);
@@ -288,7 +289,7 @@ class PayAllocationAudit extends React.Component {
                             </div>
                             {this.data.auditDetail.allotDetail.map((item, index) => (
                                 <div className='detailBorder detailMarTop borderBottom'>
-                                    <DetailNormal label="分配部门" value={item.Context} />
+                                    <DetailNormal label="分配部门" value={item.DeptName} />
                                     <DetailNormal label="分配项目" value={item.ItemID} />
                                     <DetailNormal label="分配金额" value={`${item.AllocationSum || '0.00'}元`} />
                                     <DetailNormal label="分配摘要" value={item.Context || ''} />
