@@ -40,7 +40,6 @@ export const SubmitBtn = (props) => {
         </div>
     )
 };
-
 export const OutLoginBtn = (props) => {
     return (
         <div className="outLoginBox">
@@ -253,6 +252,117 @@ export const AuditBtn = (props) => {
     )
 };
 
+export const AuditBtnThree = (props) => {
+    return (
+        <div className={`submitBox ${props.isBtnHide ? "hide" : "show"}`}>
+            <input type="text" name="audit" className={"submitBtnAD"}
+                value="通过" readOnly={true}
+                onClick={props.handleClickAudit}
+            />
+            <input type="text" name="repulse" className={"submitBtnRE"}
+                value="打回" readOnly={true}
+                onClick={props.handleClickAudit}
+            />
+            <input type="text" name="reject" className={"submitBtnRJ"}
+                value="拒绝" readOnly={true}
+                onClick={props.handleClickAudit}
+            />
+            <style>{`
+                .submitBox{
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: -moz-box;
+                    display: flex;
+                    width:100%;
+                    height: 0.88rem;
+                    position: relative;
+                    border-shadow: 0 -0.05rem 0.05rem #cdcdcd;
+                    -moz-box-shadow: 0 -0.05rem 0.05rem #cdcdcd;
+                    -webkit-box-shadow: 0 -0.05rem 0.05rem #cdcdcd;
+                    align-items: center;
+                    justify-content: center;
+                    line-height: 0.88rem;
+                    border-top: 1px solid #cdcdcd;
+                    padding: 0 0.28rem;
+                }
+                .submitBtnAD{
+                    -webkit-box-flex: 1;
+                    -webkit-flex: 1;
+                    flex:1;
+                    position: relative;
+                    text-align: center;
+                    background: green;
+                    border: none;
+                    outline: none;
+                    color:#fff;
+                    width: 90%;
+                    font-size: 0.28rem;
+                    height: 0.6rem;
+                    margin-right: 0.2rem;
+                }
+                .submitBtnFS{
+                    -webkit-box-flex: 1;
+                    -webkit-flex: 1;
+                    flex:1;
+                    position: relative;
+                    text-align: center;
+                    background:#197efe;
+                    border: none;
+                    outline: none;
+                    color:#fff;
+                    width: 90%;
+                    font-size: 0.28rem;
+                    height: 0.6rem;
+                    margin-right: 0.2rem;
+                }
+                .submitBtnRJ{
+                    -webkit-box-flex: 1;
+                    -webkit-flex: 1;
+                    flex:1;
+                    position: relative;
+                    text-align: center;
+                    background: red;
+                    border: none;
+                    outline: none;
+                    color:#fff;
+                    width: 90%;
+                    font-size: 0.28rem;
+                    height: 0.6rem;
+                }
+                .submitBtnRE{
+                    -webkit-box-flex: 1;
+                    -webkit-flex: 1;
+                    flex:1;
+                    position: relative;
+                    text-align: center;
+                    background: orange;
+                    border: none;
+                    outline: none;
+                    color:#fff;
+                    width: 90%;
+                    font-size: 0.28rem;
+                    height: 0.6rem;
+                    margin-right: 0.2rem;
+                }
+                .submitBtnUL{
+                    -webkit-box-flex: 1;
+                    -webkit-flex: 1;
+                    flex:1;
+                    position: relative;
+                    text-align: center;
+                    background: #197efe;
+                    border: none;
+                    outline: none;
+                    color:#fff;
+                    width: 90%;
+                    font-size: 0.28rem;
+                    height: 0.6rem;
+                }
+          `}</style>
+        </div>
+    )
+};
 export const AddProject = (props) => {
     return (
         <div className="addProject">

@@ -113,7 +113,7 @@ class PayAllocationAdd extends React.Component {
             if (code.indexOf("&") != -1) {
                 code = code.split('&')[0];
             }
-            if (code && code.indexOf('.') < 0&& code.indexOf('ICID') != -1) {
+            if (code && code.indexOf('.') < 0 && code.indexOf('ICID') != -1) {
                 //if (code.indexOf("ItemID") !== -1 && code.indexOf("ItemName") !== -1) {
                 var _code = JSON.parse(code);
                 //    this.data.params.Type = _code.Type;

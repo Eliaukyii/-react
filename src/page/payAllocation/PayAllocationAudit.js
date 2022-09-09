@@ -145,6 +145,7 @@ class PayAllocationAudit extends React.Component {
             params: {
                 type: 'ApprovalAllocation',
                 userid: this.data.userid,
+                auditType: "audit",
                 json: {
                     ID: this.data.params.ID,
                 }

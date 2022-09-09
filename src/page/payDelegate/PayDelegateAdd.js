@@ -140,6 +140,7 @@ class PayDelegateAdd extends React.Component {
             },
             method: 'post'
         }).then(res => {
+            console.log(res);
             this.data.isShowTips = false;
             if (res.data.length > 0) {
                 this.data.params.ID = res.data[0].IC_ID;

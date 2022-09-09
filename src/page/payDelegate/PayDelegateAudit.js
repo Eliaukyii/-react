@@ -2,7 +2,7 @@ import React from 'react'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { HeadTitle } from "../commonComp/HeadTitle";
-import { AuditBtn, SubmitBtn } from "../commonComp/SubmitBtnComp";
+import { AuditBtnThree, SubmitBtn } from "../commonComp/SubmitBtnComp";
 import axios from "axios";
 import Tips from "../commonComp/TipsComp";
 import { ExpenseAuditAlter } from "../commonComp/AuditAlterComp";
@@ -37,7 +37,7 @@ class PayDelegateAudit extends React.Component {
         isBtnHide2: true,
         checker: '',
         filePreList: [],
-        PFI_Status: '',
+        PFI_Status: '1',
         processList: [],
         isShowPro: false,
         showDelBtn: false
@@ -147,6 +147,7 @@ class PayDelegateAudit extends React.Component {
     };
 
     handleClickAudit = (e) => {
+        this.data.auditType = e.target.name;
         this.data.isShowFilter = true;
         this.data.isShowTips = true;
         this.data.tipsText = "正在处理请稍候...";
@@ -155,8 +156,9 @@ class PayDelegateAudit extends React.Component {
             params: {
                 type: 'ApprovalDownBudget',
                 userid: this.data.userid,
+                auditType: this.data.auditType,
                 json: {
-                    ID: this.data.params.ID,
+                    ID: this.data.params.ID
                 }
             }
         }).then(res => {
@@ -284,7 +286,8 @@ class PayDelegateAudit extends React.Component {
                         </div>
                     </div>
                 </div>
-                <SubmitBtn value='通过' isBtnHide={this.data.isBtnHide} handleClick={this.handleClickAudit} />
+                <AuditBtnThree isBtnHide={this.data.isBtnHide} handleClickAudit={this.handleClickAudit} status={this.data.PFI_Status}
+                />
                 <SubmitBtn value='同步分配' isBtnHide={this.data.isBtnHide2} handleClick={this.handleClickAudit2} />
                 <style>{`
                     body{
