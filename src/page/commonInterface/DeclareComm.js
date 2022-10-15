@@ -43,7 +43,7 @@ export const getEmployee = (userid, deptCode, keyword) => {
             let data = decodeURIComponent(escape(window.atob(res.data)));
             let obj = eval('(' + data + ')');
             resolve(obj);
-        });
+        })
     })
 };
 

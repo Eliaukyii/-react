@@ -202,15 +202,47 @@ class PayDelegateAudit extends React.Component {
         //    ItemName: this.data.auditDetail.ItemName,
         //    Money: this.data.auditDetail.Money
         //};
-        var json = {
-            ICID: this.data.params.ID,
-            ItemID: this.data.auditDetail.ItemID,
-        };
+        //var json = {
+        //    ICID: this.data.params.ID,
+        //    ItemID: this.data.auditDetail.ItemID,
+        //};
+        //this.data.isShowTips = true;
+        //this.data.tipsText = '正在同步分配数据！';
+        //setTimeout(() => {
+        //    window.location.href = '/home/payAllocationAdd?' + encodeURI(JSON.stringify(json));
+        //}, 1000);
+        this.data.isShowToast = false;
         this.data.isShowTips = true;
         this.data.tipsText = '正在同步分配数据！';
-        setTimeout(() => {
-            window.location.href = '/home/payAllocationAdd?' + encodeURI(JSON.stringify(json));
-        }, 1000);
+        axios({
+            url: URL.histBudget,
+            params: {
+                type: 'SyncAllotAll',
+                userid: this.data.userid,
+                json: {
+                    ID: this.data.params.ID
+                }
+            },
+            method: 'get'
+        }).then(res => {
+            this.data.isShowFilter = false;
+            if (res.data.code === '00') {
+                this.data.isShowTips = true;
+                this.data.tipsText = '同步分配成功！';
+                setTimeout(() => {
+                    this.data.isShowTips = false;
+                    this.data.tipsText = '';
+                    window.location.href = '/home/payDelegateList';
+                }, 1000);
+            }else{
+                this.data.isShowTips = true;
+                this.data.tipsText = res.data.msg;
+                setTimeout(() => {
+                    this.data.isShowTips = false;
+                    this.data.tipsText = '';
+                }, 1000);
+            }
+        });
     };
 
     handleClickDel = () => {
@@ -231,7 +263,7 @@ class PayDelegateAudit extends React.Component {
                     ID: this.data.params.IC_ID
                 }
             },
-            method: 'get'
+            method: 'post'
         }).then(res => {
             if (res.data.code === '00') {
                 this.data.isShowTips = true;
@@ -242,8 +274,15 @@ class PayDelegateAudit extends React.Component {
                     this.data.isShowFilter = false;
                     window.location.href = '/home/payDelegateList';
                 }, 1000);
+            }else{
+                this.data.isShowTips = true;
+                this.data.tipsText = res.data.msg;
+                setTimeout(() => {
+                    this.data.isShowTips = false;
+                    this.data.tipsText = '';
+                }, 1000);
             }
-        });
+        })
     }
 
     handleClickAlterCancel = () => {
@@ -276,7 +315,7 @@ class PayDelegateAudit extends React.Component {
                                 <DetailBold label="下发原因" value={this.data.auditDetail.change.IC_Note} />
                             </div>
                             {this.data.auditDetail.changeDetail.map((item, index) => (
-                                <div className='detailBorder detailMarTop borderBottom'>
+                                <div className='detailBorder detailMarTop borderBottom' key={index}>
                                     <DetailNormal label="下发部门" value={item.DeptName} />
                                     <DetailNormal label="下发项目" value={item.ItemID} />
                                     <DetailNormal label="下发金额" value={`${item.Money || '0.00'}元`} />

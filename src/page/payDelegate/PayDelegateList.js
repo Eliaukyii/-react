@@ -219,6 +219,7 @@ class PayDelegateList extends React.Component {
             this.data.tipsText = '';
             if (self.payDelegateList.length > 0) {
                 if (res.data.length > 0) {
+                    console(res.data);
                     self.payDelegateList = self.payDelegateList.concat(res.data);
                     if (res.data.length < 10) {
                         self.isShowLoadMore = true;
