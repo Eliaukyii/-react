@@ -1,10 +1,22 @@
 import React from 'react'
-import { observable } from 'mobx'
-import { observer } from 'mobx-react'
-import { ContentHead, HeadTitle } from "../commonComp/HeadTitle";
-import { SubmitBtn, TwoSelectBtn } from "../commonComp/SubmitBtnComp";
+import {
+    observable
+} from 'mobx'
+import {
+    observer
+} from 'mobx-react'
+import {
+    ContentHead,
+    HeadTitle
+} from "../commonComp/HeadTitle";
+import {
+    SubmitBtn,
+    TwoSelectBtn
+} from "../commonComp/SubmitBtnComp";
 import axios from "axios";
-import { ContentInputs } from "../commonComp/InputComp";
+import {
+    ContentInputs
+} from "../commonComp/InputComp";
 import URL from "../../../public/api/serverAPI.config";
 import Tips from "../commonComp/TipsComp";
 import {
@@ -15,14 +27,31 @@ import {
     PreZwdFilter,
     PreBillFilter,
 } from "../commonComp/EditCommonFilter";
-import { CommonConfig } from "../config/commonConfig";
-import { getBill, getDept, getEmployee, getItem, getZwd, getUploadFile } from "../commonInterface/DeclareComm";
+import {
+    CommonConfig
+} from "../config/commonConfig";
+import {
+    getBill,
+    getDept,
+    getEmployee,
+    getItem,
+    getZwd,
+    getUploadFile
+} from "../commonInterface/DeclareComm";
 import DatePicker from "react-mobile-datepicker";
 import moment from "moment";
-import { AlterTips } from "../../page/commonComp/AlterTips";
-import { getMoneyNumber, uuid } from "../config/commonCheck";
+import {
+    AlterTips
+} from "../../page/commonComp/AlterTips";
+import {
+    getMoneyNumber,
+    uuid
+} from "../config/commonCheck";
 import AllowanceDchList from "./AllowanceDchList";
-import { AddOtherProgressBar, AddProgressBar } from "../commonComp/ProgressBar";
+import {
+    AddOtherProgressBar,
+    AddProgressBar
+} from "../commonComp/ProgressBar";
 import BaseComm from "../commonInterface/BaseComm";
 
 @observer
@@ -34,6 +63,10 @@ class AddAllowanceThird extends React.Component {
         Dept: '',
         Year: '',
         params: {
+            BankAccountName: '',
+            BankAccount: '',
+            BankName: '',
+            BankID: '',
             Anyreason: '',
             Item: '',
             ItemID: '',
@@ -188,7 +221,7 @@ class AddAllowanceThird extends React.Component {
                         let filename = event.target.id;
                         for (let j = 0; j < fileList.length; j++) {
                             if (fileList[j].name === filename) {
-                                fileList.splice(j, 1);//从数组中移除
+                                fileList.splice(j, 1); //从数组中移除
                                 box.remove();
                                 break;
                             }
@@ -211,7 +244,7 @@ class AddAllowanceThird extends React.Component {
                         let filename = event.target.id;
                         for (let j = 0; j < fileList.length; j++) {
                             if (fileList[j].name === filename) {
-                                fileList.splice(j, 1);//从数组中移除
+                                fileList.splice(j, 1); //从数组中移除
                                 box.remove();
                                 break;
                             }
@@ -305,12 +338,12 @@ class AddAllowanceThird extends React.Component {
             }, 1000);
             return;
         }
-        if (this.data.params.Unit && this.data.params.Anyreason
-            && this.data.params.YearDate && this.data.params.ApplicantBuMenID && this.data.params.wandeihidden && this.data.params.AllCourse
-            && this.data.params.AnyBuMenID && this.data.params.AttnId && this.data.params.Enclosure && this.data.params.Applicant
-            && this.data.params.hid_use && this.data.params.ApplicantID && this.data.params.AttnBumenID
-            && this.data.params.Anyperson && this.data.params.AnypersonID && this.data.params.Attn && this.data.params.use && this.data.params.PaymentCourse
-            && this.data.params.Money_1 && this.data.params.ItemID && this.data.params.HedgeNum) {
+        if (this.data.params.Unit && this.data.params.Anyreason &&
+            this.data.params.YearDate && this.data.params.ApplicantBuMenID && this.data.params.wandeihidden && this.data.params.AllCourse &&
+            this.data.params.AnyBuMenID && this.data.params.AttnId && this.data.params.Enclosure && this.data.params.Applicant &&
+            this.data.params.hid_use && this.data.params.ApplicantID && this.data.params.AttnBumenID &&
+            this.data.params.Anyperson && this.data.params.AnypersonID && this.data.params.Attn && this.data.params.use && this.data.params.PaymentCourse &&
+            this.data.params.Money_1 && this.data.params.ItemID && this.data.params.HedgeNum) {
             if (this.data.fileArr.length > 0) {
                 this.data.isShowFilter = true;
                 this.data.isShowTips = true;
@@ -445,35 +478,98 @@ class AddAllowanceThird extends React.Component {
     };
 
     render() {
-        return (
-            <div className="wrapper">
-                <div className="wrapper-detail colorAddBG">
-                    <Tips text={this.data.tipsText} isShow={this.data.isShowTips} />
-                    <div id="list-filter" className="list-filter" onClick={this.handleClickCover}
-                        style={{ display: this.data.isShowFilter ? 'block' : 'none' }}>
-                    </div>
-                    <HeadTitle titleTxt="往来新增" handleClickBack={this.handleClickBack} />
-                    <AddOtherProgressBar oneTit='项目明细' twoTit='其他信息' threeTit='附件上传' fourTit='申报完成'
-                        secondOver={true} thirdOver={true}
-                        onClickFour={this.handleClickSubmit} />
-                    <div className="content_main list-bomPad">
-                        <ContentInputs display="none"
-                            readOnly={true} title="上传文件"
-                            multiple="multiple" borderBot={true} />
-                        <div className="detail-contentBot" ref={content => { this.content = content }}>
-                            <div className="addFile" name="uploadFile">
-                                <input type="file" name="uploadFile" className="inputFile"
-                                    readOnly={true} multiple="multiple"
-                                    onChange={this.handleChangeInput}
-                                />
-                                <div className="icon_uploadFile" />
-                                <span>上传图片/文件</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <TwoSelectBtn handleClickSave={this.handleClickSave} handleClickSubmit={this.handleClickSubmit} />
-                <style>{`
+        return ( <
+            div className = "wrapper" >
+            <
+            div className = "wrapper-detail colorAddBG" >
+            <
+            Tips text = {
+                this.data.tipsText
+            }
+            isShow = {
+                this.data.isShowTips
+            }
+            /> <
+            div id = "list-filter"
+            className = "list-filter"
+            onClick = {
+                this.handleClickCover
+            }
+            style = {
+                {
+                    display: this.data.isShowFilter ? 'block' : 'none'
+                }
+            } >
+            <
+            /div> <
+            HeadTitle titleTxt = "往来新增"
+            handleClickBack = {
+                this.handleClickBack
+            }
+            /> <
+            AddOtherProgressBar oneTit = '项目明细'
+            twoTit = '其他信息'
+            threeTit = '附件上传'
+            fourTit = '申报完成'
+            secondOver = {
+                true
+            }
+            thirdOver = {
+                true
+            }
+            onClickFour = {
+                this.handleClickSubmit
+            }
+            /> <
+            div className = "content_main list-bomPad" >
+            <
+            ContentInputs display = "none"
+            readOnly = {
+                true
+            }
+            title = "上传文件"
+            multiple = "multiple"
+            borderBot = {
+                true
+            }
+            /> <
+            div className = "detail-contentBot"
+            ref = {
+                content => {
+                    this.content = content
+                }
+            } >
+            <
+            div className = "addFile"
+            name = "uploadFile" >
+            <
+            input type = "file"
+            name = "uploadFile"
+            className = "inputFile"
+            readOnly = {
+                true
+            }
+            multiple = "multiple"
+            onChange = {
+                this.handleChangeInput
+            }
+            /> <
+            div className = "icon_uploadFile" / >
+            <
+            span > 上传图片 / 文件 < /span> <
+            /div> <
+            /div> <
+            /div> <
+            /div> <
+            TwoSelectBtn handleClickSave = {
+                this.handleClickSave
+            }
+            handleClickSubmit = {
+                this.handleClickSubmit
+            }
+            /> <
+            style > {
+                `
                     body{
                         overflow-y:${this.state.overflow};
                     }
@@ -502,8 +598,9 @@ class AddAllowanceThird extends React.Component {
                         height:auto;
                         overflow:initial;
                     }
-                `}</style>
-            </div>
+                `
+            } < /style> <
+            /div>
         )
     }
 }

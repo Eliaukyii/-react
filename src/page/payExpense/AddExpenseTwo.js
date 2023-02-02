@@ -45,6 +45,12 @@ class AddExpenseTwo extends React.Component {
             Payment3: '0.00',
             Bill3: '0.00',
             Note_3: '',
+            Use_4: '',
+            UseID_4: '',
+            Money_4: '0.00',
+            Payment4: '0.00',
+            Bill4: '0.00',
+            Note_4: '',
             Moneyhidden: '0.00',
             PaymentSum: '0.00',
             BillSum: '0.00',
@@ -89,6 +95,11 @@ class AddExpenseTwo extends React.Component {
         isShowBlock1: true,
         isShowBlock2: false,
         isShowBlock3: false,
+        isShowBlock4: false,
+        isShowBlock5: false,
+        isShowBlock6: false,
+        isShowBlock7: false,
+        isShowBlock8: false,
         useCurrent: '',
         epCurrent: 'Dept',
         danweiID: '',
@@ -138,19 +149,90 @@ class AddExpenseTwo extends React.Component {
         if (currAddSum) {
             this.data.currAddSum = currAddSum;
         }
-        if (this.data.currAddSum > 2) {
+        // if (this.data.currAddSum > 3) {
+        //     this.data.isShowBlock2 = true;
+        //     this.data.isShowBlock3 = true;
+        //     this.data.isShowBlock4 = true;
+        //     this.data.currDel = 1;
+        // }
+        if (this.data.currAddSum > 7) {
             this.data.isShowBlock2 = true;
             this.data.isShowBlock3 = true;
+            this.data.isShowBlock4 = true;
+            this.data.isShowBlock5 = true;
+            this.data.isShowBlock6 = true;
+            this.data.isShowBlock7 = true;
+            this.data.isShowBlock8 = true;
+            this.data.currDel = 1;
+        }
+        if (this.data.currAddSum === 7) {
+            this.data.isShowBlock2 = true;
+            this.data.isShowBlock3 = true;
+            this.data.isShowBlock4 = true;
+            this.data.isShowBlock5 = true;
+            this.data.isShowBlock6 = true;
+            this.data.isShowBlock7 = true;
+            this.data.isShowBlock8 = false;
+            this.data.currDel = 1;
+        }
+        if (this.data.currAddSum === 6) {
+            this.data.isShowBlock2 = true;
+            this.data.isShowBlock3 = true;
+            this.data.isShowBlock4 = true;
+            this.data.isShowBlock5 = true;
+            this.data.isShowBlock6 = true;
+            this.data.isShowBlock7 = false;
+            this.data.isShowBlock8 = false;
+            this.data.currDel = 1;
+        }
+        if (this.data.currAddSum === 5) {
+            this.data.isShowBlock2 = true;
+            this.data.isShowBlock3 = true;
+            this.data.isShowBlock4 = true;
+            this.data.isShowBlock5 = true;
+            this.data.isShowBlock6 = false;
+            this.data.isShowBlock7 = false;
+            this.data.isShowBlock8 = false;
+            this.data.currDel = 1;
+        }
+        if (this.data.currAddSum === 4) {
+            this.data.isShowBlock2 = true;
+            this.data.isShowBlock3 = true;
+            this.data.isShowBlock4 = true;
+            this.data.isShowBlock5 = false;
+            this.data.isShowBlock6 = false;
+            this.data.isShowBlock7 = false;
+            this.data.isShowBlock8 = false;
+            this.data.currDel = 1;
+        }
+        if (this.data.currAddSum === 3) {
+            this.data.isShowBlock2 = true;
+            this.data.isShowBlock3 = true;
+            this.data.isShowBlock4 = false;
+            this.data.isShowBlock5 = false;
+            this.data.isShowBlock6 = false;
+            this.data.isShowBlock7 = false;
+            this.data.isShowBlock8 = false;
             this.data.currDel = 1;
         }
         if (this.data.currAddSum === 2) {
             this.data.isShowBlock2 = true;
             this.data.isShowBlock3 = false;
+            this.data.isShowBlock4 = false;
+            this.data.isShowBlock5 = false;
+            this.data.isShowBlock6 = false;
+            this.data.isShowBlock7 = false;
+            this.data.isShowBlock8 = false;
             this.data.currDel = 1;
         }
         if (this.data.currAddSum === 1) {
             this.data.isShowBlock2 = false;
             this.data.isShowBlock3 = false;
+            this.data.isShowBlock4 = false;
+            this.data.isShowBlock5 = false;
+            this.data.isShowBlock6 = false;
+            this.data.isShowBlock7 = false;
+            this.data.isShowBlock8 = false;
             this.data.currDel = 0;
         }
     };
@@ -596,6 +678,23 @@ class AddExpenseTwo extends React.Component {
                 }, 1000);
             }
         }
+        if (name === 'Use_4') {
+            if (this.data.params.danweiID) {
+                this.data.useCurrent = 'use4';
+                this.data.addUseList = await getItem(this.data.userid, this.data.params.danweiID);
+                if (!this.data.isUseShow) {
+                    this.data.isShowFilter = true;
+                    this.data.useClassName = CommonConfig.opened;
+                }
+            } else {
+                this.data.isShowTips = true;
+                this.data.tipsText = '请先选择经费部门！';
+                setTimeout(() => {
+                    this.data.isShowTips = false;
+                    this.data.tipsText = '';
+                }, 1000);
+            }
+        }
     };
 
     render() {
@@ -680,6 +779,21 @@ class AddExpenseTwo extends React.Component {
                             <ContentInputs name="Bill3" display="block" readOnly={true} iconName="icon-select" price="元"
                                 title="③挂账金额" type="text" placeholder="请填写"
                                 value={this.data.params.Bill3}
+                                handleChange={this.handleChangeInput} />
+                        </div>
+                        <div id="box_main"
+                            className={`box_main ${this.data.isShowBlock4 ? 'main_opened' : 'main_closed'}`}>
+                            <ContentInputs name="Money_4" display="block" iconName="icon-select" price="元"
+                                title="④报销金额" type="text" placeholder="请填写" handleFocus={this.handleFocusMoney}
+                                value={this.data.params.Money_4} handleBlur={this.handleBlurMoney}
+                                handleChange={this.handleChangeInput} />
+                            <ContentInputs name="Payment4" display="block" iconName="icon-select" price="元"
+                                title="④实付金额" type="text" placeholder="请填写" handleFocus={this.handleFocusMoney}
+                                value={this.data.params.Payment4} handleBlur={this.handleBlurMoney}
+                                handleChange={this.handleChangeInput} />
+                            <ContentInputs name="Bill4" display="block" readOnly={true} iconName="icon-select" price="元"
+                                title="④挂账金额" type="text" placeholder="请填写"
+                                value={this.data.params.Bill4}
                                 handleChange={this.handleChangeInput} />
                         </div>
                         <ContentInputs name="Moneyhidden" display="none" readOnly={true}

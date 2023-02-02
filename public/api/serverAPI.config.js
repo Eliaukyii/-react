@@ -5,7 +5,8 @@
  **/
 
 //const HISTORY = 'http://localhost:11139/';
-const HISTORY = 'http://xtpt.hbxytc.cn:8090';
+//const HISTORY = 'http://xtpt.hbxytc.cn:8090';
+ const HISTORY = 'http://192.168.2.107:8090';
 //const HISTORY = 'http://121.37.188.23:8091/';
 const URL = {
     histLogin: HISTORY + '/PaySearchInterface.aspx',//登录

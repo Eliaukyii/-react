@@ -370,12 +370,26 @@ class PayExpenseAudit extends React.Component {
                                 <DetailNormal label="实付金额" value={`${detail.Payment2 || '0.00'}元`} />
                                 <DetailNormal label="挂账金额" value={`${detail.Bill2 || '0.00'}元`} />
                             </div>
-                            <div className={`detailMarTop ${detail.Note_3 && detail.Use_3 ? 'show' : 'hide'}`} >
+                            <div className={`detailBorder detailMarTop borderBottom ${detail.Note_3 && detail.Use_3 ? 'show' : 'hide'}`} >
                                 <DetailNormal label="③&nbsp;&nbsp;&nbsp;摘要" value={detail.Note_3 || ''} />
                                 <DetailNormal label="经费用途" value={`${detail.Use_3 || '0.00'}元`} />
                                 <DetailNormal label="报销金额" value={`${detail.Money_3 || '0.00'}元`} />
                                 <DetailNormal label="实付金额" value={`${detail.Payment3 || '0.00'}元`} />
                                 <DetailNormal label="挂账金额" value={`${detail.Bill3 || '0.00'}元`} />
+                            </div>
+                            <div className={`detailMarTop ${detail.Note_4 && detail.Use_4 ? 'show' : 'hide'}`} >
+                                <DetailNormal label="③&nbsp;&nbsp;&nbsp;摘要" value={detail.Note_4 || ''} />
+                                <DetailNormal label="经费用途" value={`${detail.Use_4 || '0.00'}元`} />
+                                <DetailNormal label="报销金额" value={`${detail.Money_4 || '0.00'}元`} />
+                                <DetailNormal label="实付金额" value={`${detail.Payment4 || '0.00'}元`} />
+                                <DetailNormal label="挂账金额" value={`${detail.Bill4 || '0.00'}元`} />
+                            </div>
+                             <div className={`detailMarTop ${detail.Note_4 && detail.Use_4 ? 'show' : 'hide'}`} >
+                                <DetailNormal label="④&nbsp;&nbsp;&nbsp;摘要" value={detail.Note_4 || ''} />
+                                <DetailNormal label="经费用途" value={`${detail.Use_4 || '0.00'}元`} />
+                                <DetailNormal label="报销金额" value={`${detail.Money_4 || '0.00'}元`} />
+                                <DetailNormal label="实付金额" value={`${detail.Payment4 || '0.00'}元`} />
+                                <DetailNormal label="挂账金额" value={`${detail.Bill4 || '0.00'}元`} />
                             </div>
                         </div>
                         <div className="spaceG" />

@@ -45,6 +45,12 @@ class PayExpenseAdd extends React.Component {
             Payment3: '0.00',
             Bill3: '0.00',
             Note_3: '',
+            Use_4: '',
+            UseID_4: '',
+            Money_4: '0.00',
+            Payment4: '0.00',
+            Bill4: '0.00',
+            Note_4: '',
             Moneyhidden: '0.00',
             PaymentSum: '0.00',
             BillSum: '0.00',
@@ -88,6 +94,11 @@ class PayExpenseAdd extends React.Component {
         useClassName: '',
         isShowBlock2: false,
         isShowBlock3: false,
+        isShowBlock4: false,
+        isShowBlock5: false,
+        isShowBlock6: false,
+        isShowBlock7: false,
+        isShowBlock8: false,
         useCurrent: '',
         epCurrent: 'Dept',
         danweiID: '',
@@ -160,19 +171,84 @@ class PayExpenseAdd extends React.Component {
         let currAddSum = JSON.parse(sessionStorage.getItem("currAddSum"));
         if (currAddSum) {
             this.data.currAddSum = currAddSum;
-            if (this.data.currAddSum > 2) {
+            if (this.data.currAddSum > 7) {
                 this.data.isShowBlock2 = true;
                 this.data.isShowBlock3 = true;
+                this.data.isShowBlock4 = true;
+                this.data.isShowBlock5 = true;
+                this.data.isShowBlock6 = true;
+                this.data.isShowBlock7 = true;
+                this.data.isShowBlock8 = true;
+                this.data.currDel = 1;
+            }
+            if (this.data.currAddSum === 7) {
+                this.data.isShowBlock2 = true;
+                this.data.isShowBlock3 = true;
+                this.data.isShowBlock4 = true;
+                this.data.isShowBlock5 = true;
+                this.data.isShowBlock6 = true;
+                this.data.isShowBlock7 = true;
+                this.data.isShowBlock8 = false;
+                this.data.currDel = 1;
+            }
+            if (this.data.currAddSum === 6) {
+                this.data.isShowBlock2 = true;
+                this.data.isShowBlock3 = true;
+                this.data.isShowBlock4 = true;
+                this.data.isShowBlock5 = true;
+                this.data.isShowBlock6 = true;
+                this.data.isShowBlock7 = false;
+                this.data.isShowBlock8 = false;
+                this.data.currDel = 1;
+            }
+            if (this.data.currAddSum === 5) {
+                this.data.isShowBlock2 = true;
+                this.data.isShowBlock3 = true;
+                this.data.isShowBlock4 = true;
+                this.data.isShowBlock5 = true;
+                this.data.isShowBlock6 = false;
+                this.data.isShowBlock7 = false;
+                this.data.isShowBlock8 = false;
+                this.data.currDel = 1;
+            }
+            if (this.data.currAddSum === 4) {
+                this.data.isShowBlock2 = true;
+                this.data.isShowBlock3 = true;
+                this.data.isShowBlock4 = true;
+                this.data.isShowBlock5 = false;
+                this.data.isShowBlock6 = false;
+                this.data.isShowBlock7 = false;
+                this.data.isShowBlock8 = false;
+                this.data.currDel = 1;
+            }
+            if (this.data.currAddSum === 3) {
+                this.data.isShowBlock2 = true;
+                this.data.isShowBlock3 = true;
+                this.data.isShowBlock4 = false;
+                this.data.isShowBlock5 = false;
+                this.data.isShowBlock6 = false;
+                this.data.isShowBlock7 = false;
+                this.data.isShowBlock8 = false;
                 this.data.currDel = 1;
             }
             if (this.data.currAddSum === 2) {
                 this.data.isShowBlock2 = true;
                 this.data.isShowBlock3 = false;
+                this.data.isShowBlock4 = false;
+                this.data.isShowBlock5 = false;
+                this.data.isShowBlock6 = false;
+                this.data.isShowBlock7 = false;
+                this.data.isShowBlock8 = false;
                 this.data.currDel = 1;
             }
             if (this.data.currAddSum === 1) {
                 this.data.isShowBlock2 = false;
                 this.data.isShowBlock3 = false;
+                this.data.isShowBlock4 = false;
+                this.data.isShowBlock5 = false;
+                this.data.isShowBlock6 = false;
+                this.data.isShowBlock7 = false;
+                this.data.isShowBlock8 = false;
                 this.data.currDel = 0;
             }
         }
@@ -211,6 +287,12 @@ class PayExpenseAdd extends React.Component {
                 this.data.params.Payment3 = res.data.Payment3;
                 this.data.params.Bill3 = res.data.Bill3;
                 this.data.params.Note_3 = res.data.Note_3;
+                this.data.params.Use_4 = res.data.Use_4;
+                this.data.params.UseID_4 = res.data.UseID_4;
+                this.data.params.Money_4 = res.data.Money_4
+                this.data.params.Payment4 = res.data.Payment4;
+                this.data.params.Bill4= res.data.Bill4;
+                this.data.params.Note_4 = res.data.Note_4;
                 this.data.params.Moneyhidden = res.data.Moneyhidden;
                 this.data.params.PaymentSum = res.data.PaymentSum;
                 this.data.params.BillSum = res.data.BillSum;
@@ -231,28 +313,41 @@ class PayExpenseAdd extends React.Component {
                 this.data.params.YearDate = res.data.YearDate;
                 this.data.params.Rbunit = res.data.Rbunit;
                 this.data.params.IsTravel = res.data.IsTravel;
-                if (this.data.params.UseID_1 && this.data.params.UseID_2 && this.data.params.UseID_3) {
+                if (this.data.params.UseID_1 && this.data.params.UseID_2 && this.data.params.UseID_3 && this.data.params.UseID_4) {
+                    this.data.currAddSum = 4;
+                }
+                if (this.data.params.UseID_1 && this.data.params.UseID_2 && this.data.params.UseID_3 && !this.data.params.UseID_4) {
                     this.data.currAddSum = 3;
                 }
-                if (this.data.params.UseID_1 && this.data.params.UseID_2 && !this.data.params.UseID_3) {
+                if (this.data.params.UseID_1 && this.data.params.UseID_2 && !this.data.params.UseID_3 && !this.data.params.UseID_4) {
                     this.data.currAddSum = 2;
                 }
-                if (this.data.params.UseID_1 && !this.data.params.UseID_2 && !this.data.params.UseID_3) {
+                if (this.data.params.UseID_1 && !this.data.params.UseID_2 && !this.data.params.UseID_3 && !this.data.params.UseID_4) {
                     this.data.currAddSum = 1;
                 }
-                if (this.data.currAddSum > 2) {
+                
+                if (this.data.currAddSum > 3) {
                     this.data.isShowBlock2 = true;
                     this.data.isShowBlock3 = true;
+                    this.data.isShowBlock4 = true;
+                    this.data.currDel = 1;
+                }
+                if (this.data.currAddSum === 3) {
+                    this.data.isShowBlock2 = true;
+                    this.data.isShowBlock3 = true;
+                    this.data.isShowBlock4 = false;
                     this.data.currDel = 1;
                 }
                 if (this.data.currAddSum === 2) {
                     this.data.isShowBlock2 = true;
                     this.data.isShowBlock3 = false;
+                    this.data.isShowBlock4 = false;
                     this.data.currDel = 1;
                 }
                 if (this.data.currAddSum === 1) {
                     this.data.isShowBlock2 = false;
                     this.data.isShowBlock3 = false;
+                    this.data.isShowBlock4 = false;
                     this.data.currDel = 0;
                 }
             }
@@ -381,6 +476,23 @@ class PayExpenseAdd extends React.Component {
                 }, 1000);
             }
         }
+        if (name === 'Use_4') {
+            if (this.data.params.danweiID) {
+                this.data.useCurrent = 'use4';
+                this.data.addUseList = await getItem(this.data.userid, this.data.params.danweiID);
+                if (!this.data.isUseShow) {
+                    this.data.isShowFilter = true;
+                    this.data.useClassName = CommonConfig.opened;
+                }
+            } else {
+                this.data.isShowTips = true;
+                this.data.tipsText = '请先选择经费部门！';
+                setTimeout(() => {
+                    this.data.isShowTips = false;
+                    this.data.tipsText = '';
+                }, 1000);
+            }
+        }
     };
 
     handleClickClear = async (e) => {
@@ -460,6 +572,12 @@ class PayExpenseAdd extends React.Component {
             this.data.useClassName = CommonConfig.closed;
             this.data.isShowFilter = false;
         }
+        if (this.data.useCurrent === 'use4') {
+            this.data.params.UseID_4 = e.target.id;
+            this.data.params.Use_4 = e.target.innerText;
+            this.data.useClassName = CommonConfig.closed;
+            this.data.isShowFilter = false;
+        }
     };
 
     //选择时间
@@ -487,14 +605,37 @@ class PayExpenseAdd extends React.Component {
             this.data.currDel = 1;
             this.data.isShowBlock2 = true;
             this.data.isShowBlock3 = true;
+            this.data.isShowBlock4 = true;
+            this.data.currAddSum += 1;
+        }
+        if (this.data.currAddSum === 3 && this.data.currDel === 0) {
+            this.data.currDel = 1;
+            this.data.isShowBlock2 = true;
+            this.data.isShowBlock3 = true;
+            this.data.isShowBlock4= true;
             this.data.currAddSum += 1;
         }
     };
 
     handleClickDelPro = () => {
-        if (this.data.currAddSum > 2 && this.data.currDel === 1) {
+        if (this.data.currAddSum > 3 && this.data.currDel === 1) {
+            this.data.currAddSum -= 1;
+            this.data.isShowBlock4 = false;
+            this.data.params.Use_4= "";
+            this.data.params.UseID_4 = "";
+            this.data.params.Note_4 = "";
+            this.data.params.Money_4 = "0.00";
+            this.data.params.Payment4 = "0.00";
+            this.data.params.Bill4 = "0.00";
+            this.data.params.PaymentSum = getMoneyNumber(parseFloat(this.data.params.Payment1) + parseFloat(this.data.params.Payment2) + parseFloat(this.data.params.Payment3));
+            this.data.params.BillSum = getMoneyNumber(parseFloat(this.data.params.Bill1) + parseFloat(this.data.params.Bill2)+ parseFloat(this.data.params.Bill3));
+            this.data.params.Moneyhidden = getMoneyNumber(parseFloat(this.data.params.Money_3) + parseFloat(this.data.params.Money_2) + parseFloat(this.data.params.Money_1));
+            return;
+        }
+        if (this.data.currAddSum === 3 && this.data.currDel === 1) {
             this.data.currAddSum -= 1;
             this.data.isShowBlock3 = false;
+            this.data.isShowBlock4 = false;
             this.data.params.Use_3 = "";
             this.data.params.UseID_3 = "";
             this.data.params.Note_3 = "";
@@ -602,6 +743,34 @@ class PayExpenseAdd extends React.Component {
                 window.location.href = '/home/addExpenseTwo';
             }
         }
+        if (this.data.currAddSum === 4) {
+            if (!this.data.params.Use_1 || !this.data.params.Use_2 || !this.data.params.Use_3 || !this.data.params.Use_4) {
+                this.data.isShowTips = true;
+                this.data.tipsText = "请选择经费项目！";
+                setTimeout(() => {
+                    this.data.isShowTips = false;
+                    this.data.tipsText = '';
+                }, 1000);
+                return;
+            }
+            if (!this.data.params.Note_1 || !this.data.params.Note_2 || !this.data.params.Note_3 || !this.data.params.Note_4) {
+                this.data.isShowTips = true;
+                this.data.tipsText = "请填写摘要！";
+                setTimeout(() => {
+                    this.data.isShowTips = false;
+                    this.data.tipsText = '';
+                }, 1000);
+                return;
+            }
+            if (this.data.params.Use_1 && this.data.params.Note_1
+                && this.data.params.Use_2 && this.data.params.Note_2
+                && this.data.params.Use_3 && this.data.params.Note_3
+                && this.data.params.Use_4 && this.data.params.Note_4) {
+                sessionStorage.setItem("currAddSum", JSON.stringify(this.data.currAddSum));
+                sessionStorage.setItem("params", JSON.stringify(this.data.params));
+                window.location.href = '/home/addExpenseTwo';
+            }
+        }
     };
 
     render() {
@@ -684,6 +853,61 @@ class PayExpenseAdd extends React.Component {
                             <ContentInputs name="Use_3" display="block" readOnly={true}
                                 title="经费项目" type="text" placeholder="请选择"
                                 value={this.data.params.Use_3} iconName="iconfont icon-xiangyou icon-select"
+                                handleClick={this.handleClickFilter} />
+                        </div>
+                        <div id="box_main"
+                            className={`box_main ${this.data.isShowBlock4 ? 'main_opened' : 'main_closed'}`}>
+                            <ContentInputs name="Note_4" display="block"
+                                title="④&nbsp;&nbsp;&nbsp;摘要" type="text" placeholder="请填写"
+                                value={this.data.params.Note_4}
+                                handleChange={this.handleChangeInput} />
+                            <ContentInputs name="Use_4" display="block" readOnly={true}
+                                title="经费项目" type="text" placeholder="请选择"
+                                value={this.data.params.Use_4} iconName="iconfont icon-xiangyou icon-select"
+                                handleClick={this.handleClickFilter} />
+                        </div>
+                        <div id="box_main"
+                            className={`box_main ${this.data.isShowBlock5 ? 'main_opened' : 'main_closed'}`}>
+                            <ContentInputs name="Note_5" display="block"
+                                title="⑤&nbsp;&nbsp;&nbsp;摘要" type="text" placeholder="请填写"
+                                value={this.data.params.Note_5}
+                                handleChange={this.handleChangeInput} />
+                            <ContentInputs name="Use_5" display="block" readOnly={true}
+                                title="经费项目" type="text" placeholder="请选择"
+                                value={this.data.params.Use_5} iconName="iconfont icon-xiangyou icon-select"
+                                handleClick={this.handleClickFilter} />
+                        </div>
+                        <div id="box_main"
+                            className={`box_main ${this.data.isShowBlock6 ? 'main_opened' : 'main_closed'}`}>
+                            <ContentInputs name="Note_6" display="block"
+                                title="⑥&nbsp;&nbsp;&nbsp;摘要" type="text" placeholder="请填写"
+                                value={this.data.params.Note_6}
+                                handleChange={this.handleChangeInput} />
+                            <ContentInputs name="Use_6" display="block" readOnly={true}
+                                title="经费项目" type="text" placeholder="请选择"
+                                value={this.data.params.Use_6} iconName="iconfont icon-xiangyou icon-select"
+                                handleClick={this.handleClickFilter} />
+                        </div>
+                        <div id="box_main"
+                            className={`box_main ${this.data.isShowBlock7 ? 'main_opened' : 'main_closed'}`}>
+                            <ContentInputs name="Note_7" display="block"
+                                title="⑦&nbsp;&nbsp;&nbsp;摘要" type="text" placeholder="请填写"
+                                value={this.data.params.Note_7}
+                                handleChange={this.handleChangeInput} />
+                            <ContentInputs name="Use_7" display="block" readOnly={true}
+                                title="经费项目" type="text" placeholder="请选择"
+                                value={this.data.params.Use_7} iconName="iconfont icon-xiangyou icon-select"
+                                handleClick={this.handleClickFilter} />
+                        </div>
+                        <div id="box_main"
+                            className={`box_main ${this.data.isShowBlock8 ? 'main_opened' : 'main_closed'}`}>
+                            <ContentInputs name="Note_8" display="block"
+                                title="⑧&nbsp;&nbsp;&nbsp;摘要" type="text" placeholder="请填写"
+                                value={this.data.params.Note_8}
+                                handleChange={this.handleChangeInput} />
+                            <ContentInputs name="Use_8" display="block" readOnly={true}
+                                title="经费项目" type="text" placeholder="请选择"
+                                value={this.data.params.Use_8} iconName="iconfont icon-xiangyou icon-select"
                                 handleClick={this.handleClickFilter} />
                         </div>
                     </div>

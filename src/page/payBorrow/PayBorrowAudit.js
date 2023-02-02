@@ -97,7 +97,7 @@ class PayBorrowAudit extends React.Component {
         axios({
             url: URL.histBorrow,
             params: {
-                type: 'GetAnysingle',
+                type: 'GetAnysingleCY',
                 userid: this.data.userid,
                 json: {
                     PFI_ID: PFI_ID

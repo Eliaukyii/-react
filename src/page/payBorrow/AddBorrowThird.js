@@ -21,7 +21,7 @@ import BaseComm from "../commonInterface/BaseComm";
 class AddBorrowThird extends React.Component {
     @observable data = {
         userid: '',
-        type: 'AddAnysingle',
+        type: 'AddAnysingleCY',
         Name: '',
         Dept: '',
         Year: '',
@@ -51,7 +51,11 @@ class AddBorrowThird extends React.Component {
             deptKey: '',
             managersKey: '',
             attnKey: '',
-            useKey: ''
+            useKey: '',
+            BankAccountName:'',
+            BankAccount:'',
+            BankName:'',
+            BankID:'',
         },
         payExpenseAdd: [],
         page: 1,

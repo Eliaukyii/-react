@@ -18,7 +18,7 @@ class PayBorrowAdd extends React.Component {
     @observable data = {
         userid: '',
         userInfo: [],
-        type: 'AddAnysingle',
+        type: 'AddAnysingleCY',
         params: {
             Use_1: '',
             UseID_1: '',

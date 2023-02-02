@@ -1,27 +1,58 @@
 import React from 'react'
-import { observable } from 'mobx'
-import { observer } from 'mobx-react'
-import { ContentHead, HeadTitle } from "../commonComp/HeadTitle";
-import { SubmitBtn } from "../commonComp/SubmitBtnComp";
+import {
+    observable
+} from 'mobx'
+import {
+    observer
+} from 'mobx-react'
+import {
+    ContentHead,
+    HeadTitle
+} from "../commonComp/HeadTitle";
+import {
+    SubmitBtn
+} from "../commonComp/SubmitBtnComp";
 import axios from "axios";
-import { ContentInputs } from "../commonComp/InputComp";
+import {
+    ContentInputs
+} from "../commonComp/InputComp";
 import URL from "../../../public/api/serverAPI.config";
 import Tips from "../commonComp/TipsComp";
-import { PreApplicatFilter, PreAttnFilter, PreDeptFilter, PreItemFilter } from "../commonComp/EditCommonFilter";
-import { CommonConfig } from "../config/commonConfig";
-import { getDept, getEmployee, getItem, getUploadFile } from "../commonInterface/DeclareComm";
+import {
+    PreApplicatFilter,
+    PreAttnFilter,
+    PreDeptFilter,
+    PreItemFilter
+} from "../commonComp/EditCommonFilter";
+import {
+    CommonConfig
+} from "../config/commonConfig";
+import {
+    getDept,
+    getEmployee,
+    getItem,
+    getUploadFile
+} from "../commonInterface/DeclareComm";
 import DatePicker from "react-mobile-datepicker";
 import moment from "moment";
-import { AlterTips } from "../../page/commonComp/AlterTips";
-import { getMoneyNumber, uuid } from "../config/commonCheck";
-import { AddOtherProgressBar, AddProgressBar } from "../commonComp/ProgressBar";
+import {
+    AlterTips
+} from "../../page/commonComp/AlterTips";
+import {
+    getMoneyNumber,
+    uuid
+} from "../config/commonCheck";
+import {
+    AddOtherProgressBar,
+    AddProgressBar
+} from "../commonComp/ProgressBar";
 import BaseComm from "../commonInterface/BaseComm";
 
 @observer
 class AddBorrowTwo extends React.Component {
     @observable data = {
         userid: '',
-        type: 'AddAnysingle',
+        type: 'AddAnysingleCY',
         Name: '',
         Dept: '',
         Year: '',
@@ -51,7 +82,11 @@ class AddBorrowTwo extends React.Component {
             deptKey: '',
             managersKey: '',
             attnKey: '',
-            useKey: ''
+            useKey: '',
+            BankAccountName: '',
+            BankAccount: '',
+            BankName: '',
+            BankID: '',
         },
         payExpenseAdd: [],
         page: 1,
@@ -224,10 +259,10 @@ class AddBorrowTwo extends React.Component {
             }, 1000);
             return;
         }
-        if (this.data.params.wandeihidden && this.data.params.AnypersonID && this.data.params.ApplicantID && this.data.params.Applicant
-            && this.data.params.AttnId && this.data.params.Attn && this.data.params.Unit && this.data.params.AttnBumenID
-            && this.data.params.YearDate && this.data.params.Enclosure && this.data.params.ApplicantBuMenID && this.data.params.AnyBuMenID
-            && this.data.params.Anyperson && this.data.params.ItemID) {
+        if (this.data.params.wandeihidden && this.data.params.AnypersonID && this.data.params.ApplicantID && this.data.params.Applicant &&
+            this.data.params.AttnId && this.data.params.Attn && this.data.params.Unit && this.data.params.AttnBumenID &&
+            this.data.params.YearDate && this.data.params.Enclosure && this.data.params.ApplicantBuMenID && this.data.params.AnyBuMenID &&
+            this.data.params.Anyperson && this.data.params.ItemID) {
             this.data.isShowFilter = true;
             this.data.isShowTips = true;
             this.data.tipsText = "正在保存请稍候...";
@@ -360,7 +395,8 @@ class AddBorrowTwo extends React.Component {
             this.data.deptClassName = CommonConfig.closed;
             this.data.addApplicatList = await getEmployee(this.data.userid, this.data.danweiID);
             this.data.managersClassName = CommonConfig.opened;
-        } if (this.data.epCurrent === 'Anyperson') {
+        }
+        if (this.data.epCurrent === 'Anyperson') {
             this.data.danweiID = e.target.id;
             this.data.deptClassName = CommonConfig.closed;
             this.data.addAttnList = await getEmployee(this.data.userid, this.data.danweiID);
@@ -400,67 +436,217 @@ class AddBorrowTwo extends React.Component {
     };
 
     render() {
-        return (
-            <div className="wrapper">
-                <div className="wrapper-detail colorAddBG">
-                    <Tips text={this.data.tipsText} isShow={this.data.isShowTips} />
-                    <div id="list-filter" className="list-filter" onClick={this.handleClickCover}
-                        style={{ display: this.data.isShowFilter ? 'block' : 'none' }}>
-                    </div>
-                    <PreDeptFilter filterClassName={this.data.deptClassName}
-                        addPreList={this.data.addDeptList.data || []} name="deptKey"
-                        handleChangeInput={this.handleChangeInput}
-                        deptKey={this.data.params.deptKey}
-                        handleChooseFilter={this.handleChooseDept}
-                        handleClickClear={this.handleClickClear} />
-                    <PreApplicatFilter filterClassName={this.data.managersClassName}
-                        addPreList={this.data.addApplicatList.data || []} name="managersKey"
-                        handleChangeInput={this.handleChangeInput}
-                        managersKey={this.data.params.managersKey}
-                        handleChooseFilter={this.handleChooseManagers}
-                        handleClickClear={this.handleClickClear} />
-                    <PreAttnFilter filterClassName={this.data.rbpersonClassName}
-                        addPreList={this.data.addAttnList.data || []} name="attnKey"
-                        handleChangeInput={this.handleChangeInput}
-                        attnKey={this.data.params.attnKey}
-                        handleChooseFilter={this.handleChooseAttn}
-                        handleClickClear={this.handleClickClear} />
-                    <PreItemFilter filterClassName={this.data.useClassName}
-                        addPreList={this.data.addUseList.data || []} name="useKey"
-                        handleChangeInput={this.handleChangeInput}
-                        itemKey={this.data.params.useKey}
-                        handleChooseFilter={this.handleChooseUse}
-                        handleClickClear={this.handleClickClear} />
-                    <HeadTitle titleTxt="借支新增" handleClickBack={this.handleClickBack} />
-                    <AddOtherProgressBar oneTit='项目明细' twoTit='其他信息' threeTit='附件上传' fourTit='申报完成'
-                        secondOver={true}
-                        onClickOne={this.handleClickBack}
-                        onClickThree={this.handleClickSubmit} />
-                    <div className="content_main list-bomPad">
-                        <ContentInputs name="Enclosure" display="block" handleFocus={this.handleFocusMoney}
-                            title="附件" type="number" placeholder="请填写"
-                            value={this.data.params.Enclosure}
-                            handleChange={this.handleChangeInput} />
-                        <ContentInputs name="BankAccID" display="none" isHide={false}
-                            title="银行账户" type="text" placeholder="请填写"
-                            value={this.data.params.BankAccID}
-                            handleChange={this.handleChangeInput} />
-                        <ContentInputs name="BankAccName" display="none" isHide={false}
-                            title="账户名称" type="text" placeholder="请填写"
-                            value={this.data.params.BankAccName}
-                            handleChange={this.handleChangeInput} />
-                        <ContentInputs name="Attn" display="block" readOnly={true}
-                            title="经办人" type="text" placeholder="请选择"
-                            value={this.data.params.Attn} iconName="iconfont icon-xiangyou icon-select"
-                            handleClick={this.handleClickFilter} />
-                        <ContentInputs name="Anyperson" display="block" readOnly={true}
-                            title="借支人" type="text" placeholder="请选择"
-                            value={this.data.params.Anyperson} iconName="iconfont icon-xiangyou icon-select"
-                            handleClick={this.handleClickFilter} />
-                    </div>
-                </div>
-                <SubmitBtn value="保存" handleClick={this.handleClickSubmit} />
-                <style>{`
+        return ( <
+            div className = "wrapper" >
+            <
+            div className = "wrapper-detail colorAddBG" >
+            <
+            Tips text = {
+                this.data.tipsText
+            }
+            isShow = {
+                this.data.isShowTips
+            }
+            /> <
+            div id = "list-filter"
+            className = "list-filter"
+            onClick = {
+                this.handleClickCover
+            }
+            style = {
+                {
+                    display: this.data.isShowFilter ? 'block' : 'none'
+                }
+            } >
+            <
+            /div> <
+            PreDeptFilter filterClassName = {
+                this.data.deptClassName
+            }
+            addPreList = {
+                this.data.addDeptList.data || []
+            }
+            name = "deptKey"
+            handleChangeInput = {
+                this.handleChangeInput
+            }
+            deptKey = {
+                this.data.params.deptKey
+            }
+            handleChooseFilter = {
+                this.handleChooseDept
+            }
+            handleClickClear = {
+                this.handleClickClear
+            }
+            /> <
+            PreApplicatFilter filterClassName = {
+                this.data.managersClassName
+            }
+            addPreList = {
+                this.data.addApplicatList.data || []
+            }
+            name = "managersKey"
+            handleChangeInput = {
+                this.handleChangeInput
+            }
+            managersKey = {
+                this.data.params.managersKey
+            }
+            handleChooseFilter = {
+                this.handleChooseManagers
+            }
+            handleClickClear = {
+                this.handleClickClear
+            }
+            /> <
+            PreAttnFilter filterClassName = {
+                this.data.rbpersonClassName
+            }
+            addPreList = {
+                this.data.addAttnList.data || []
+            }
+            name = "attnKey"
+            handleChangeInput = {
+                this.handleChangeInput
+            }
+            attnKey = {
+                this.data.params.attnKey
+            }
+            handleChooseFilter = {
+                this.handleChooseAttn
+            }
+            handleClickClear = {
+                this.handleClickClear
+            }
+            /> <
+            PreItemFilter filterClassName = {
+                this.data.useClassName
+            }
+            addPreList = {
+                this.data.addUseList.data || []
+            }
+            name = "useKey"
+            handleChangeInput = {
+                this.handleChangeInput
+            }
+            itemKey = {
+                this.data.params.useKey
+            }
+            handleChooseFilter = {
+                this.handleChooseUse
+            }
+            handleClickClear = {
+                this.handleClickClear
+            }
+            /> <
+            HeadTitle titleTxt = "借支新增"
+            handleClickBack = {
+                this.handleClickBack
+            }
+            /> <
+            AddOtherProgressBar oneTit = '项目明细'
+            twoTit = '其他信息'
+            threeTit = '附件上传'
+            fourTit = '申报完成'
+            secondOver = {
+                true
+            }
+            onClickOne = {
+                this.handleClickBack
+            }
+            onClickThree = {
+                this.handleClickSubmit
+            }
+            /> <
+            div className = "content_main list-bomPad" >
+            <
+            ContentInputs name = "Enclosure"
+            display = "block"
+            handleFocus = {
+                this.handleFocusMoney
+            }
+            title = "附件"
+            type = "number"
+            placeholder = "请填写"
+            value = {
+                this.data.params.Enclosure
+            }
+            handleChange = {
+                this.handleChangeInput
+            }
+            /> <
+            ContentInputs name = "BankAccID"
+            display = "none"
+            isHide = {
+                false
+            }
+            title = "银行账户"
+            type = "text"
+            placeholder = "请填写"
+            value = {
+                this.data.params.BankAccID
+            }
+            handleChange = {
+                this.handleChangeInput
+            }
+            /> <
+            ContentInputs name = "BankAccName"
+            display = "none"
+            isHide = {
+                false
+            }
+            title = "账户名称"
+            type = "text"
+            placeholder = "请填写"
+            value = {
+                this.data.params.BankAccName
+            }
+            handleChange = {
+                this.handleChangeInput
+            }
+            /> <
+            ContentInputs name = "Attn"
+            display = "block"
+            readOnly = {
+                true
+            }
+            title = "经办人"
+            type = "text"
+            placeholder = "请选择"
+            value = {
+                this.data.params.Attn
+            }
+            iconName = "iconfont icon-xiangyou icon-select"
+            handleClick = {
+                this.handleClickFilter
+            }
+            /> <
+            ContentInputs name = "Anyperson"
+            display = "block"
+            readOnly = {
+                true
+            }
+            title = "借支人"
+            type = "text"
+            placeholder = "请选择"
+            value = {
+                this.data.params.Anyperson
+            }
+            iconName = "iconfont icon-xiangyou icon-select"
+            handleClick = {
+                this.handleClickFilter
+            }
+            /> <
+            /div> <
+            /div> <
+            SubmitBtn value = "保存"
+            handleClick = {
+                this.handleClickSubmit
+            }
+            /> <
+            style > {
+                `
                     body{
                         overflow-y:${this.state.overflow};
                     }
@@ -472,8 +658,9 @@ class AddBorrowTwo extends React.Component {
                         height:auto;
                         overflow:initial;
                     }
-                `}</style>
-            </div>
+                `
+            } < /style> <
+            /div>
         )
     }
 }

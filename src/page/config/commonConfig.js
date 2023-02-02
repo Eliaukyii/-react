@@ -84,18 +84,18 @@ export const DelegateType = [
 ]
 //移动端权限参数
 export const AllMenu = [
-    { Menu_ID: '5ed20159-d1ad-4bbe-92f3-e574d9d6be88', isShow: false },//0“申报”的报销申报和“查询”的报销查询
-    { Menu_ID: '50b0de20-44de-441e-8c48-f641943f374f', isShow: false },//1“审批”的报销审批
-    { Menu_ID: '201705091608593987', isShow: false },//2“首页”的预算管理
-    { Menu_ID: '201705101130391869', isShow: false },//3“首页”的预算管理
-    { Menu_ID: '201605301130387887', isShow: false },//4“申报”的薪酬申报和“查询”的薪酬查询
-    { Menu_ID: '201708141454184143', isShow: false },//5“审批”的薪酬审批
-    { Menu_ID: '201607121512509449', isShow: false },//6“查询”的工资查询
-    { Menu_ID: '201607141718142647', isShow: false },//7“查询”的工资查询
-    { Menu_ID: '184727cc-1b9f-4788-a452-bc16987e10ad', isShow: false },//8“申报”的往来申报和“查询”的往来查询
-    { Menu_ID: '8cca0fea-84fc-4427-ac34-ba47154d5c80', isShow: false },//9“审批”的往来审批
-    { Menu_ID: 'c3add1a8-7dc7-4a85-a693-8b557907490d', isShow: false },//10“申报”的借支申报和“查询”的借支查询
-    { Menu_ID: '7865a81a-abaf-4340-9f0a-76fa85f00961', isShow: false },//11“审批”的借支审批
-    { Menu_ID: '201707032253157336', isShow: false },//12预算执行
-    { Menu_ID: '201707032252563707', isShow: false }//13下发分配
+    { Menu_ID: '5ed20159-d1ad-4bbe-92f3-e574d9d6be88', isShow: true },//0“申报”的报销申报和“查询”的报销查询
+    { Menu_ID: '50b0de20-44de-441e-8c48-f641943f374f', isShow: true },//1“审批”的报销审批
+    { Menu_ID: '201705091608593987', isShow: true },//2“首页”的预算管理
+    { Menu_ID: '201705101130391869', isShow: true },//3“首页”的预算管理
+    { Menu_ID: '201605301130387887', isShow: true },//4“申报”的薪酬申报和“查询”的薪酬查询
+    { Menu_ID: '201708141454184143', isShow: true },//5“审批”的薪酬审批
+    { Menu_ID: '201607121512509449', isShow: true },//6“查询”的工资查询
+    { Menu_ID: '201607141718142647', isShow: true },//7“查询”的工资查询
+    { Menu_ID: '184727cc-1b9f-4788-a452-bc16987e10ad', isShow: true },//8“申报”的往来申报和“查询”的往来查询
+    { Menu_ID: '8cca0fea-84fc-4427-ac34-ba47154d5c80', isShow: true },//9“审批”的往来审批
+    { Menu_ID: 'c3add1a8-7dc7-4a85-a693-8b557907490d', isShow: true },//10“申报”的借支申报和“查询”的借支查询
+    { Menu_ID: '7865a81a-abaf-4340-9f0a-76fa85f00961', isShow: true },//11“审批”的借支审批
+    { Menu_ID: '201707032253157336', isShow: true },//12预算执行
+    { Menu_ID: '201707032252563707', isShow: true }//13下发分配
 ]

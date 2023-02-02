@@ -21,12 +21,16 @@ import BaseComm from "../commonInterface/BaseComm";
 class PayBorrowAdd extends React.Component {
     @observable data = {
         userid: '',
-        type: 'AddAnysingle',
+        type: 'AddAnysingleCY',
         Name: '',
         Dept: '',
         Year: '',
         pfi_id: '',
         params: {
+            BankAccountName:'',
+            BankAccount:'',
+            BankName:'',
+            BankID:'',
             Anyreason: '',
             ItemID: '',
             Item: '',
@@ -143,7 +147,7 @@ class PayBorrowAdd extends React.Component {
         axios({
             url: URL.histBorrow,
             params: {
-                type: 'GetAnysingle',
+                type: 'GetAnysingleCY',
                 userid: this.data.userid,
                 json: {
                     PFI_ID: PFI_ID
@@ -169,6 +173,12 @@ class PayBorrowAdd extends React.Component {
                 this.data.params.AnyBuMenID = res.data.AnyBuMenID;
                 this.data.params.Othernote = res.data.Othernote;
                 this.data.params.Anyreason = res.data.Anyreason;
+                // 新增户名、账号、开户行、行号
+                this.data.params.BankAccountName = res.data.BankAccountName;
+                this.data.params.BankAccount = res.data.BankAccount;
+                this.data.params.BankName = res.data.BankName;
+                this.data.params.BankID = res.data.BankID;
+                
                 this.data.params.Anyperson = res.data.Anyperson;
                 this.data.params.ItemID = res.data.ItemID;
                 if (this.data.params.ItemID) {
@@ -399,14 +409,50 @@ class PayBorrowAdd extends React.Component {
         }
         if (!this.data.params.Item) {
             this.data.isShowTips = true;
-            this.data.tipsText = "请选择借支项目！";
+            this.data.tipsText = "请填写借支项目！";
             setTimeout(() => {
                 this.data.isShowTips = false;
                 this.data.tipsText = '';
             }, 1000);
             return;
         }
-        if (this.data.params.Money_1 && this.data.params.Anyreason && this.data.params.Unit
+        if (!this.data.params.BankAccountName) {
+            this.data.isShowTips = true;
+            this.data.tipsText = "请填写户名！";
+            setTimeout(() => {
+                this.data.isShowTips = false;
+                this.data.tipsText = '';
+            }, 1000);
+            return;
+        }
+        if (!this.data.params.BankAccount) {
+            this.data.isShowTips = true;
+            this.data.tipsText = "请填写账(卡)号！";
+            setTimeout(() => {
+                this.data.isShowTips = false;
+                this.data.tipsText = '';
+            }, 1000);
+            return;
+        }
+        if (!this.data.params.BankName) {
+            this.data.isShowTips = true;
+            this.data.tipsText = "请填写开户行！";
+            setTimeout(() => {
+                this.data.isShowTips = false;
+                this.data.tipsText = '';
+            }, 1000);
+            return;
+        }
+        if (!this.data.params.BankID) {
+            this.data.isShowTips = true;
+            this.data.tipsText = "请填写行号！";
+            setTimeout(() => {
+                this.data.isShowTips = false;
+                this.data.tipsText = '';
+            }, 1000);
+            return;
+        }
+        if (this.data.params.Money_1 && this.data.params.Anyreason && this.data.params.BankAccountName && this.data.params.BankAccount && this.data.params.BankName && this.data.params.BankID && this.data.params.Unit
             && this.data.params.Item && this.data.params.YearDate) {
             sessionStorage.setItem("params", JSON.stringify(this.data.params));
             window.location.href = '/home/addBorrowTwo';
@@ -486,6 +532,27 @@ class PayBorrowAdd extends React.Component {
                             handleBlur={this.handleBlurMoney} handleFocus={this.handleFocusMoney}
                             value={this.data.params.Money_1}
                             handleChange={this.handleChangeInput} />
+                        {/* 新增 */}
+                        <ContentInputs name="BankAccountName" display="block"
+                            title="户名" type="text" placeholder="请填写"
+                            value={this.data.params.BankAccountName} 
+                            handleChange={this.handleChangeInput}/>
+                            
+                        <ContentInputs name="BankAccount" display="block"
+                            title="帐(卡)号" type="text" placeholder="请填写"
+                            value={this.data.params.BankAccount} 
+                            handleChange={this.handleChangeInput} />
+
+                        <ContentInputs name="BankName" display="block"
+                            title="开户行" type="text" placeholder="请填写"
+                            value={this.data.params.BankName} 
+                            handleChange={this.handleChangeInput} />
+
+                        <ContentInputs name="BankID" display="block"
+                            title="行号" type="text" placeholder="请填写"
+                            value={this.data.params.BankID} 
+                            handleChange={this.handleChangeInput} />
+
                         <ContentInputs name="Othernote" display="none" borderBot={true}
                             title="其他记载" type="text" placeholder="请填写"
                             value={this.data.params.Othernote}
